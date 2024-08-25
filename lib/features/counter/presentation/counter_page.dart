@@ -25,17 +25,31 @@ class CounterPage extends ConsumerWidget {
       ),
 
       // Boton flotante
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final currentCounter = await ref.read(counterStateProvider.future);
-          final newCounterValue = currentCounter.value + 1;
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // Incrementar
+          FloatingActionButton(
+            onPressed: () async {
+              await ref.read(updateCounterProvider).call(delta: 1);
+              ref.invalidate(counterStateProvider);
+            },
+            child: const Icon(Icons.add),
+          ),
 
-          // Cambiamos su valor
-          await ref.read(updateCounterProvider).call(newCounterValue);
-          ref.refresh(counterStateProvider);
-        },
-        child: const Icon(Icons.add),
-      ),
+          const SizedBox(height: 10),
+
+          // Decremento
+          FloatingActionButton(
+            onPressed: () async {
+              await ref.read(updateCounterProvider).call(delta: -1);
+              ref.invalidate(counterStateProvider);
+            },
+            child: const Icon(Icons.remove),
+          )
+      
+        ],
+      )
 
     );
   }

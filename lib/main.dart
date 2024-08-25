@@ -22,8 +22,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true
+        )
       ),
-      home: CounterPage()
+      home: const CounterPage()
     );
   }
 }

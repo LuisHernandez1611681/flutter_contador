@@ -5,7 +5,9 @@ class UpdateCounter {
 
   UpdateCounter(this.repository);
 
-  Future<void> call(int value) async {
-    await repository.updateCounter(value);
+  Future<void> call({int delta = 0}) async {
+    final currentCounter = await repository.getCounter();
+    final newCounterValue = currentCounter.value + delta;
+    await repository.updateCounter(newCounterValue);
   }
 }
